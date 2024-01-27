@@ -29,7 +29,7 @@
 - сессия текущего пользователя: login / password / role
 
 Схема для Redux Store на клиенте:
-- user: id / login / roleId
+- user: id / login / roleId / session
 - posts:массив post: id / title / imageUrl / publishedAt / commentsCount
 - post: id / title / imageUrl / content / publishedAt / comments: массив comment: id / author / content / publishedAt
 - users: массив user: id / login / registeredAt / role

@@ -19,7 +19,6 @@ export const createSession = (role_id) => {
             break;
         case ROLE.READER:
             break;
-
         default:
             return;
     }

@@ -1,24 +1,19 @@
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { Icon } from "../icon-component/icon-component";
+import { Button } from "../button-component/button-component";
+import { ROLE } from "../../constants/role";
+import {
+    selectUserRole,
+    selectUserLogin,
+    selectUserSession,
+} from "../../selectors";
+import { logOut } from "../../actions";
 
 const RightAligned = styled.div`
     display: flex;
     justify-content: flex-end;
-`;
-
-const Button = styled.button`
-    font-size: 18px;
-    background-color: #fff;
-    border: 1px solid #000;
-    padding: 3px;
-    border-radius: 7px;
-    cursor: pointer;
-    &:hover {
-        transform: translateY(-3px);
-        box-shadow: 4px 3px 4px 0px rgba(0, 0, 0, 0.5);
-    }
-    transition: all 0.2s;
 `;
 
 const StyledIcon = styled(Icon)`
@@ -26,17 +21,40 @@ const StyledIcon = styled(Icon)`
         transform: translateY(-3px);
     }
     transition: all 0.2s;
+    cursor: pointer;
+`;
+
+const UserWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    font-size: 22px;
+    column-gap: 10px;
 `;
 
 const ControlPanelContainer = ({ className }) => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const roleId = useSelector(selectUserRole);
+    const login = useSelector(selectUserLogin);
+    const session = useSelector(selectUserSession);
 
     return (
         <div className={className}>
             <RightAligned>
-                <Link to="/login">
-                    <Button>Log in</Button>
-                </Link>
+                {roleId === ROLE.GUEST ? (
+                    <Button>
+                        <Link to="/login">Log in</Link>
+                    </Button>
+                ) : (
+                    <UserWrapper>
+                        <h4>{login}</h4>
+                        <StyledIcon
+                            id={"fa-sign-out"}
+                            onClick={() => dispatch(logOut(session))}
+                        />
+                    </UserWrapper>
+                )}
             </RightAligned>
             <RightAligned>
                 <div onClick={() => navigate(-1)} style={{ cursor: "pointer" }}>

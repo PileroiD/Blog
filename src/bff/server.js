@@ -1,3 +1,4 @@
+import { sessions } from "./sessions";
 import { addUser } from "./user-actions/add-user";
 import { createSession } from "./user-actions/create-session";
 import { getUser } from "./user-actions/get-user";
@@ -22,7 +23,12 @@ export const server = {
 
         return {
             error: null,
-            response: createSession(user.role_id),
+            response: {
+                id: user.id,
+                login: user.login,
+                role_id: user.role_id,
+                session: sessions.create(user),
+            },
         };
     },
     register: async (regLogin, regPassword) => {
@@ -39,7 +45,15 @@ export const server = {
 
         return {
             error: null,
-            response: createSession(user.role_id),
+            response: {
+                id: user.id,
+                login: user.login,
+                role_id: user.role_id,
+                session: sessions.create(user),
+            },
         };
+    },
+    logout: async (session) => {
+        sessions.remove(session);
     },
 };
