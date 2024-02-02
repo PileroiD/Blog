@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { Link, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -14,12 +14,7 @@ import { AuthFormError } from "../../auth-form-error/auth-form-error";
 import { useResetForm } from "../../../hooks/use-reset-form";
 import { useServerRequest } from "../../../hooks/use-server-request";
 
-const StyledLink = styled(Link)`
-    text-decoration: underline;
-    font-size: 15px;
-`;
-
-const authFormSchema = yup.object().shape({
+const regFormSchema = yup.object().shape({
     login: yup
         .string()
         .required("Login is required")
@@ -35,9 +30,13 @@ const authFormSchema = yup.object().shape({
         )
         .min(8, "Invalid password. Minimum 8 symbols")
         .max(30, "Invalid password. Max 30 symbols"),
+    passCheck: yup
+        .string()
+        .required("Repeat password is required")
+        .oneOf([yup.ref("password"), null], "Passwords don't match"),
 });
 
-const AuthorizationContainer = ({ className }) => {
+const RegistrationContainer = ({ className }) => {
     const {
         register,
         reset,
@@ -47,8 +46,9 @@ const AuthorizationContainer = ({ className }) => {
         defaultValues: {
             login: "",
             password: "",
+            passCheck: "",
         },
-        resolver: yupResolver(authFormSchema),
+        resolver: yupResolver(regFormSchema),
     });
 
     const [serverError, setServerError] = useState(null);
@@ -59,7 +59,7 @@ const AuthorizationContainer = ({ className }) => {
     useResetForm(reset);
 
     const onSubmit = ({ login, password }) => {
-        requestServer("authorize", login, password).then(
+        requestServer("register", login, password).then(
             ({ error, response }) => {
                 if (error) {
                     setServerError(`Request error: ${error}`);
@@ -71,7 +71,10 @@ const AuthorizationContainer = ({ className }) => {
         );
     };
 
-    const formError = errors?.login?.message || errors?.password?.message;
+    const formError =
+        errors?.login?.message ||
+        errors?.password?.message ||
+        errors?.passCheck?.message;
     const errorMessage = formError || serverError;
 
     if (roleId !== ROLE.GUEST) {
@@ -80,7 +83,7 @@ const AuthorizationContainer = ({ className }) => {
 
     return (
         <div className={className}>
-            <h2>Authorization</h2>
+            <h2>Registration</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Input
                     type="text"
@@ -91,7 +94,6 @@ const AuthorizationContainer = ({ className }) => {
                         onChange: () => setServerError(null),
                     })}
                 />
-                {/* {errors.login && <span>{errors.login.message}</span>} */}
 
                 <Input
                     type="password"
@@ -102,21 +104,28 @@ const AuthorizationContainer = ({ className }) => {
                         onChange: () => setServerError(null),
                     })}
                 />
-                {/* {errors.password && <span>{errors.password.message}</span>} */}
+
+                <Input
+                    type="password"
+                    placeholder="Repeat password"
+                    name="password"
+                    id="password"
+                    {...register("passCheck", {
+                        onChange: () => setServerError(null),
+                    })}
+                />
 
                 <Button disabled={!!formError} type="submit">
-                    Log in
+                    Sign up
                 </Button>
 
                 {errorMessage && <AuthFormError>{errorMessage}</AuthFormError>}
-
-                <StyledLink to="/register">Sign in</StyledLink>
             </form>
         </div>
     );
 };
 
-export const Authorization = styled(AuthorizationContainer)`
+export const Registration = styled(RegistrationContainer)`
     text-align: center;
     margin-top: 60px;
     display: flex;

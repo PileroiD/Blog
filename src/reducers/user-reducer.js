@@ -3,7 +3,7 @@ import { ROLE } from "../constants/role";
 const initialUserState = {
     id: null,
     login: null,
-    role_id: ROLE.GUEST,
+    roleId: ROLE.GUEST,
     session: null,
 };
 
