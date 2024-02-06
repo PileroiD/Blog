@@ -100,25 +100,11 @@
   ],
   "comments": [
     {
-      "id": "6d1a",
-      "author_id": "001",
-      "post_id": "001",
-      "published_at": "2024-02-04 22:54",
-      "content": "АНЬКА МАВПЕНЯТНО"
-    },
-    {
       "id": "8dea",
       "author_id": "95ee",
       "post_id": "001",
       "published_at": "2024-02-05 20:19",
       "content": "wwedwed"
-    },
-    {
-      "id": "7c50",
-      "author_id": "95ee",
-      "post_id": "001",
-      "published_at": "2024-02-05 20:19",
-      "content": "ewdwed"
     },
     {
       "id": "908c",
@@ -137,14 +123,14 @@
   ],
   "sessions": [
     {
-      "id": "36ab",
-      "hash": "0.97164190826489038599333980528172105550765991210938",
+      "id": "7bd7",
+      "hash": "0.56479797140257703702559410885442048311233520507813",
       "user": {
-        "id": "95ee",
-        "login": "ivan",
+        "id": "001",
+        "login": "alex",
         "password": "qwerty123",
-        "registeredAt": "2041-03-01 15:58",
-        "roleId": 2
+        "registeredAt": "2024-09-22 13:45",
+        "roleId": 0
       }
     }
   ]

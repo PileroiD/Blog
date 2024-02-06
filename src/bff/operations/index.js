@@ -7,3 +7,4 @@ export * from "./update-user-role";
 export * from "./remove-user";
 export * from "./fetchPost";
 export * from "./add-post-comment";
+export * from "./delete-post-comment";

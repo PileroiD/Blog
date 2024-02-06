@@ -4,3 +4,4 @@ export * from "./log-out";
 export * from "./load-post-async";
 export * from "./set-post-data";
 export * from "./add-comment-async";
+export * from "./remove-comment-async";

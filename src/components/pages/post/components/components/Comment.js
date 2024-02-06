@@ -1,7 +1,14 @@
 import styled from "styled-components";
 import { Icon } from "../../../../icon-component/icon-component";
 
-const CommentContainer = ({ className, content, publishedAt, authorLogin }) => {
+const CommentContainer = ({
+    className,
+    id,
+    content,
+    publishedAt,
+    authorLogin,
+    onCommentRemove,
+}) => {
     return (
         <div className={className}>
             <div className="comment-wrapper">
@@ -17,7 +24,12 @@ const CommentContainer = ({ className, content, publishedAt, authorLogin }) => {
                 </div>
                 <div className="comment-text">{content}</div>
             </div>
-            <Icon id={"fa-trash-o"} size={"21px"} styledicon="true" />
+            <Icon
+                id={"fa-trash-o"}
+                size={"21px"}
+                styledicon="true"
+                onClick={onCommentRemove}
+            />
         </div>
     );
 };
