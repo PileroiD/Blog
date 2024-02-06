@@ -16,17 +16,8 @@ const RightAligned = styled.div`
     justify-content: flex-end;
 `;
 
-const StyledIcon = styled(Icon)`
-    &:hover {
-        transform: translateY(-3px);
-    }
-    transition: all 0.2s;
-    cursor: pointer;
-`;
-
 const UserWrapper = styled.div`
     display: flex;
-    align-items: center;
     font-size: 22px;
     column-gap: 10px;
 `;
@@ -39,6 +30,11 @@ const ControlPanelContainer = ({ className }) => {
     const login = useSelector(selectUserLogin);
     const session = useSelector(selectUserSession);
 
+    const onLogout = () => {
+        dispatch(logOut(session));
+        sessionStorage.removeItem("userData");
+    };
+
     return (
         <div className={className}>
             <RightAligned>
@@ -49,25 +45,35 @@ const ControlPanelContainer = ({ className }) => {
                 ) : (
                     <UserWrapper>
                         <h4>{login}</h4>
-                        <StyledIcon
+                        <Icon
                             id={"fa-sign-out"}
-                            onClick={() => dispatch(logOut(session))}
+                            styledicon="true"
+                            onClick={onLogout}
                         />
                     </UserWrapper>
                 )}
             </RightAligned>
             <RightAligned>
                 <div onClick={() => navigate(-1)} style={{ cursor: "pointer" }}>
-                    <StyledIcon id={"fa-backward"} margin={"10px 0 0 0"} />
+                    <Icon
+                        id={"fa-backward"}
+                        styledicon="true"
+                        margin={"10px 0 0 0"}
+                    />
                 </div>
                 <Link to="/post">
-                    <StyledIcon
+                    <Icon
                         id={"fa-file-text-o"}
                         margin={"10px 0 0 10px"}
+                        styledicon="true"
                     />
                 </Link>
                 <Link to="/users">
-                    <StyledIcon id={"fa-users"} margin={"10px 0 0 10px"} />
+                    <Icon
+                        id={"fa-users"}
+                        margin={"10px 0 0 10px"}
+                        styledicon="true"
+                    />
                 </Link>
             </RightAligned>
         </div>

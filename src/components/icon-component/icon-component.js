@@ -6,8 +6,18 @@ const IconContainer = ({ className, id, ...props }) => (
     </div>
 );
 
+const stylesForStyledIcon = `
+    &:hover {
+        transform: translateY(-3px);
+    }
+    transition: all 0.2s;
+    cursor: pointer;
+`;
+
 export const Icon = styled(IconContainer)`
     font-size: ${({ size = "24px" }) => size};
     margin: ${({ margin = "0" }) => margin};
     color: ${({ disabled }) => (disabled ? "#ccc" : "#000")};
+    height: ${({ height = "20px" }) => height};
+    ${({ styledicon = false }) => (styledicon ? stylesForStyledIcon : "")}
 `;

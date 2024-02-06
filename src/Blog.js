@@ -5,6 +5,10 @@ import { Footer } from "./components/footer/Footer";
 import { Authorization } from "./components/pages/auth/Auth";
 import { Registration } from "./components/pages/registration/Registration";
 import { Users } from "./components/pages/users/Users";
+import { Post } from "./components/pages/post/Post";
+import { useLayoutEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setUser } from "./actions";
 
 const AppColumn = styled.div`
     display: flex;
@@ -17,10 +21,25 @@ const AppColumn = styled.div`
 `;
 
 const Page = styled.div`
-    padding: 120px 0;
+    padding: 120px 0 40px 0;
 `;
 
 function Blog() {
+    const dispatch = useDispatch();
+
+    useLayoutEffect(() => {
+        const currentUserData = JSON.parse(sessionStorage.getItem("userData"));
+
+        if (!currentUserData) return;
+
+        dispatch(
+            setUser({
+                ...currentUserData,
+                roleId: Number(currentUserData.roleId),
+            })
+        );
+    }, []);
+
     return (
         <AppColumn>
             <Header />
@@ -32,7 +51,7 @@ function Blog() {
                     <Route path="/register" element={<Registration />} />
                     <Route path="/users" element={<Users />} />
                     <Route path="/post" element={<div>New Post</div>} />
-                    <Route path="/post/:post_id" element={<div>Post</div>} />
+                    <Route path="/post/:id" element={<Post />} />
                     <Route path="*" element={<div>Error</div>} />
                 </Routes>
             </Page>

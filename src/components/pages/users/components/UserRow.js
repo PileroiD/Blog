@@ -1,17 +1,7 @@
 import styled from "styled-components";
-import { Icon } from "../../icon-component/icon-component";
+import { Icon } from "../../../icon-component/icon-component";
 import { useState } from "react";
-import { useServerRequest } from "../../../hooks/use-server-request";
-
-const StyledIcon = styled(Icon)`
-    &:hover {
-        transform: translateY(-3px);
-    }
-    transition: all 0.2s;
-    font-size: 18px;
-    line-height: 16px;
-    cursor: pointer;
-`;
+import { useServerRequest } from "../../../../hooks/use-server-request";
 
 const UserData = styled.div`
     display: flex;
@@ -79,15 +69,22 @@ const UserRowContainer = ({
                         ))}
                     </select>
                     <div className="save-role-button">
-                        <StyledIcon
+                        <Icon
                             id={"fa-floppy-o"}
+                            size={"20px"}
                             disabled={isSaveButtonDisabled}
+                            styledicon="true"
                             onClick={() => onRoleSave(id, selectedRoleId)}
                         />
                     </div>
                 </RoleColumn>
             </UserData>
-            <StyledIcon id={"fa-trash-o"} onClick={onUserRemove} />
+            <Icon
+                id={"fa-trash-o"}
+                size={"20px"}
+                styledicon="true"
+                onClick={onUserRemove}
+            />
         </div>
     );
 };

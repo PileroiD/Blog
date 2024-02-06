@@ -1,4 +1,4 @@
-import { UserRow } from "./UserRow";
+import { UserRow } from "./components/UserRow";
 import { useServerRequest } from "../../../hooks/use-server-request";
 import { useEffect, useState } from "react";
 import { Content } from "../../content/Content";
