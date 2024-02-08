@@ -100,31 +100,28 @@
   ],
   "comments": [
     {
-      "id": "8dea",
-      "author_id": "95ee",
+      "id": "76c4",
+      "author_id": "001",
       "post_id": "001",
-      "published_at": "2024-02-05 20:19",
-      "content": "wwedwed"
-    },
-    {
-      "id": "908c",
-      "author_id": "95ee",
-      "post_id": "001",
-      "published_at": "2024-02-05 20:21",
-      "content": "sdcdcsdc"
-    },
-    {
-      "id": "cb48",
-      "author_id": "95ee",
-      "post_id": "001",
-      "published_at": "2024-02-05 20:23",
-      "content": "sdcsdc"
+      "published_at": "2024-02-07 18:12",
+      "content": "dscsdcsdc"
     }
   ],
   "sessions": [
     {
       "id": "7bd7",
       "hash": "0.56479797140257703702559410885442048311233520507813",
+      "user": {
+        "id": "001",
+        "login": "alex",
+        "password": "qwerty123",
+        "registeredAt": "2024-09-22 13:45",
+        "roleId": 0
+      }
+    },
+    {
+      "id": "15b3",
+      "hash": "0.99503809076808713562911634653573855757713317871094",
       "user": {
         "id": "001",
         "login": "alex",

@@ -4,7 +4,12 @@ import { Icon } from "../../../icon-component/icon-component";
 import { Comment } from "./components/Comment";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUserId } from "../../../../selectors";
-import { addCommentAsync, removeCommentAsync } from "../../../../actions";
+import {
+    addCommentAsync,
+    closeModal,
+    openModal,
+    removeCommentAsync,
+} from "../../../../actions";
 import { useServerRequest } from "../../../../hooks/use-server-request";
 
 const CommentsContainer = ({ className, comments, postId }) => {
@@ -19,7 +24,18 @@ const CommentsContainer = ({ className, comments, postId }) => {
     };
 
     const onCommentRemove = (commentId, postId) => {
-        dispatch(removeCommentAsync(commentId, postId, requestServer));
+        dispatch(
+            openModal({
+                text: "Delete comment?",
+                onConfirm: () => {
+                    dispatch(
+                        removeCommentAsync(commentId, postId, requestServer)
+                    );
+                    dispatch(closeModal);
+                },
+                onCancel: () => dispatch(closeModal),
+            })
+        );
     };
 
     return (

@@ -3,7 +3,6 @@ import { Icon } from "../../../../icon-component/icon-component";
 
 const CommentContainer = ({
     className,
-    id,
     content,
     publishedAt,
     authorLogin,
