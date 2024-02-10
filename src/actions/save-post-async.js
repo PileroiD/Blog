@@ -5,6 +5,5 @@ export const savePostAsync =
         requestServer("savePost", imageUrl, title, content, postId).then(
             (post) => {
                 dispatch(setPostData(post.response));
-                return post.response.id;
             }
         );

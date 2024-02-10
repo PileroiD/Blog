@@ -28,7 +28,7 @@ const PostFormContainer = ({
 
         dispatch(
             savePostAsync(newImageUrl, newTitle, newContent, requestServer, id)
-        ).then((id) => {
+        ).then(() => {
             navigate(`/post/${id}`);
         });
     };

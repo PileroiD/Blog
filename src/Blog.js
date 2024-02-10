@@ -10,6 +10,7 @@ import { useLayoutEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setUser } from "./actions";
 import { Modal } from "./components/modal/Modal";
+import { Main } from "./components/pages/main/Main";
 
 const AppColumn = styled.div`
     display: flex;
@@ -47,7 +48,7 @@ function Blog() {
 
             <Page>
                 <Routes>
-                    <Route path="/" element={<div>Main Page</div>} />
+                    <Route path="/" element={<Main />} />
                     <Route path="/login" element={<Authorization />} />
                     <Route path="/register" element={<Registration />} />
                     <Route path="/users" element={<Users />} />
