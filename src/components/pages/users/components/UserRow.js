@@ -74,6 +74,7 @@ const UserRowContainer = ({
                             size={"20px"}
                             disabled={isSaveButtonDisabled}
                             styledicon="true"
+                            height={"29px"}
                             onClick={() => onRoleSave(id, selectedRoleId)}
                         />
                     </div>
@@ -83,6 +84,7 @@ const UserRowContainer = ({
                 id={"fa-trash-o"}
                 size={"20px"}
                 styledicon="true"
+                height={"29px"}
                 onClick={onUserRemove}
             />
         </div>

@@ -77,7 +77,7 @@ export const Comments = styled(CommentsContainer)`
 
     & .new-comment {
         display: flex;
-        column-gap: 7px;
+        column-gap: 6px;
 
         & i {
             height: 25px;
@@ -90,6 +90,7 @@ export const Comments = styled(CommentsContainer)`
         resize: none;
         padding: 7px;
         border: 1px solid #000;
+        border-radius: 5px;
     }
 
     & .comments {

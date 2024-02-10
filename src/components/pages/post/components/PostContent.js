@@ -1,10 +1,12 @@
 import styled from "styled-components";
+import { SpecialPanel } from "./components/SpecialPanel";
 import { Icon } from "../../../icon-component/icon-component";
-import { useSelector } from "react-redux";
-import { selectUserRole } from "../../../../selectors";
-import { ROLE } from "../../../../constants/role";
+import { useNavigate } from "react-router-dom";
 
 const StyledImg = styled.img`
+    width: 280px;
+    height: 150px;
+    object-fit: cover;
     float: left;
     margin: 7px 20px 5px 0;
     border-radius: 5px;
@@ -15,18 +17,6 @@ const H2 = styled.h2`
     line-height: 26px;
 `;
 
-const DateDiv = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 105px;
-`;
-
-const UpdateDiv = styled.div`
-    display: flex;
-    align-items: center;
-`;
-
 const Content = styled.div`
     text-align: justify;
     white-space: pre-line;
@@ -34,47 +24,34 @@ const Content = styled.div`
 
 const PostContentContainer = ({
     className,
-    post: { id, title, imageUrl, content, publishedAt },
+    post: { title, imageUrl, content, publishedAt, id },
 }) => {
-    // const roleId = useSelector(selectUserRole);
+    const navigate = useNavigate();
+
+    const toEditPage = () => {
+        navigate(`/post/${id}/edit`);
+    };
 
     return (
         <div className={className}>
             <StyledImg src={imageUrl} alt={title} />
             <H2>{title}</H2>
-            <div className="special-panel">
-                <DateDiv>
-                    <Icon id={"fa-calendar-o"} size={"17px"} />
-                    {publishedAt}
-                </DateDiv>
-                <UpdateDiv>
+            <SpecialPanel
+                publishedAt={publishedAt}
+                postId={id}
+                editButton={
                     <Icon
                         id={"fa-pencil-square-o"}
                         size={"19px"}
                         styledicon="true"
+                        onClick={toEditPage}
                     />
-                    <Icon
-                        id={"fa-trash-o"}
-                        size={"19px"}
-                        margin={"0 0 3px 7px"}
-                        styledicon="true"
-                    />
-                </UpdateDiv>
-            </div>
+                }
+                justifycontent={"space-between"}
+            />
             <Content>{content}</Content>
         </div>
     );
 };
 
-export const PostContent = styled(PostContentContainer)`
-    & .special-panel {
-        margin: 10px 0;
-        display: flex;
-        justify-content: space-between;
-    }
-
-    & i {
-        position: relative;
-        top: -1px;
-    }
-`;
+export const PostContent = styled(PostContentContainer)``;

@@ -9,7 +9,7 @@ import {
     selectUserLogin,
     selectUserSession,
 } from "../../selectors";
-import { logOut } from "../../actions";
+import { RESET_POST_DATA, logOut } from "../../actions";
 
 const RightAligned = styled.div`
     display: flex;

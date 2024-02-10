@@ -5,13 +5,13 @@ import { Content } from "../../content/Content";
 import styled from "styled-components";
 import { ROLE } from "../../../bff/constants/role";
 
-const UsersContainer = ({ className }) => {
-    const requestServer = useServerRequest();
-
+export const UsersContainer = ({ className }) => {
     const [users, setUsers] = useState([]);
     const [roles, setRoles] = useState([]);
     const [errorMessage, setErrorMessage] = useState(null);
     const [shouldUpdateUserList, setShouldUpdateUserList] = useState(false);
+
+    const requestServer = useServerRequest();
 
     useEffect(() => {
         Promise.all([
@@ -22,11 +22,12 @@ const UsersContainer = ({ className }) => {
                 setErrorMessage(usersRes.error || rolesRes.error);
                 return;
             }
+            setErrorMessage(null);
 
             setUsers(usersRes.response);
             setRoles(rolesRes.response);
         });
-    }, [requestServer, shouldUpdateUserList]);
+    }, [shouldUpdateUserList, requestServer]);
 
     const onUserRemove = (userId) => {
         requestServer("removeUser", userId).then(() => {

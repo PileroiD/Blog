@@ -1,6 +1,6 @@
 import { ACTION_TYPE } from "../actions";
 
-const initialPostState = {
+export const initialPostState = {
     id: "",
     title: "",
     imageUrl: "",
@@ -16,7 +16,11 @@ export const postReducer = (state = initialPostState, action) => {
                 ...state,
                 ...action.payload,
             };
+        case ACTION_TYPE.RESET_POST_DATA:
+            return { ...initialPostState };
         default:
             return state;
     }
 };
+
+//TODO // коли відправляю коммент, знову не видно імена.
