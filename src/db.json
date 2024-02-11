@@ -177,28 +177,5 @@
       "content": "mamahuevo"
     }
   ],
-  "sessions": [
-    {
-      "id": "d7c7",
-      "hash": "0.85413022249445558209401951899053528904914855957031",
-      "user": {
-        "id": "001",
-        "login": "alex",
-        "password": "qwerty123",
-        "registeredAt": "2024-09-22 13:45",
-        "roleId": 0
-      }
-    },
-    {
-      "id": "47b1",
-      "hash": "0.10556408599514854884660053357947617769241333007813",
-      "user": {
-        "id": "001",
-        "login": "alex",
-        "password": "qwerty123",
-        "registeredAt": "2024-09-22 13:45",
-        "roleId": 0
-      }
-    }
-  ]
+  "sessions": []
 }

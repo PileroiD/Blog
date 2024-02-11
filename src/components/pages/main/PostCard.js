@@ -46,6 +46,12 @@ export const PostCard = styled(PostCardContainer)`
     grid-template-columns: 280px;
     grid-template-rows: 140px auto;
     border: 1px solid black;
+    transition: all 0.2s;
+
+    &:hover {
+        transform: translateY(-3px);
+        box-shadow: 4px 3px 4px 0px rgba(0, 0, 0, 0.5);
+    }
 
     & img {
         width: 278px;

@@ -8,17 +8,22 @@ const ButtonContainer = ({ children, className, width, ...props }) => {
     );
 };
 
+const stylesForAnimatedButton = `
+    cursor: pointer;
+    &:hover {
+        transform: translateY(-1px);
+        box-shadow: 4px 3px 4px 0px rgba(0, 0, 0, 0.5);
+    }
+    transition: all 0.2s;
+`;
+
 export const Button = styled(ButtonContainer)`
     width: ${({ width = "100%" }) => width};
-    font-size: 18px;
+    font-size: ${({ size = "18px" }) => size};
+    font-weight: ${({ fontweight = "300" }) => fontweight};
     background-color: #fff;
     border: 1px solid #000;
     padding: 3px;
     border-radius: 7px;
-    cursor: pointer;
-    &:hover {
-        transform: translateY(-3px);
-        box-shadow: 4px 3px 4px 0px rgba(0, 0, 0, 0.5);
-    }
-    transition: all 0.2s;
+    ${({ disabled }) => (disabled ? "" : stylesForAnimatedButton)}
 `;
