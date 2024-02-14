@@ -2,15 +2,18 @@ import { getComments, getPosts } from "../api";
 import { getCommentsCount } from "./utils/get-comments-count";
 import { getLastPage } from "./utils/get-last-page";
 
-export const fetchPosts = async (page, limit) => {
+export const fetchPosts = async (searchPhrase, page, limit) => {
     const [postsResponse, comments] = await Promise.all([
-        getPosts(page, limit),
+        getPosts(searchPhrase, page, limit),
         getComments(),
     ]);
 
     const { posts, links } = postsResponse;
 
-    const lastPage = getLastPage(links);
+    let lastPage;
+    if (links) {
+        lastPage = getLastPage(links);
+    }
 
     if (posts.error || comments.error) {
         return {

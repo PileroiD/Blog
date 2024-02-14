@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Icon } from "../../icon-component/icon-component";
@@ -99,3 +100,15 @@ export const PostCard = styled(PostCardContainer)`
         }
     }
 `;
+
+const postPropTypes = PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    publishedAt: PropTypes.string.isRequired,
+    imageUrl: PropTypes.string.isRequired,
+    commentsCount: PropTypes.number.isRequired,
+});
+
+PostCard.propTypes = {
+    post: postPropTypes.isRequired,
+};

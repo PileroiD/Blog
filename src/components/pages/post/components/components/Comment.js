@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Icon } from "../../../../icon-component/icon-component";
 
@@ -7,6 +8,7 @@ const CommentContainer = ({
     publishedAt,
     authorLogin,
     onCommentRemove,
+    isAdminOrModerator,
 }) => {
     return (
         <div className={className}>
@@ -23,12 +25,14 @@ const CommentContainer = ({
                 </div>
                 <div className="comment-text">{content}</div>
             </div>
-            <Icon
-                id={"fa-trash-o"}
-                size={"21px"}
-                styledicon="true"
-                onClick={onCommentRemove}
-            />
+            {isAdminOrModerator ? (
+                <Icon
+                    id={"fa-trash-o"}
+                    size={"21px"}
+                    styledicon="true"
+                    onClick={onCommentRemove}
+                />
+            ) : null}
         </div>
     );
 };
@@ -85,3 +89,11 @@ export const Comment = styled(CommentContainer)`
         }
     }
 `;
+
+Comment.propTypes = {
+    authorId: PropTypes.string.isRequired,
+    authorLogin: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    isAdminOrModerator: PropTypes.bool.isRequired,
+};

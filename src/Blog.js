@@ -11,6 +11,8 @@ import { useDispatch } from "react-redux";
 import { setUser } from "./actions";
 import { Modal } from "./components/modal/Modal";
 import { Main } from "./components/pages/main/Main";
+import { Error } from "./components/error/Error";
+import { ERROR } from "./constants/error";
 
 const AppColumn = styled.div`
     display: flex;
@@ -55,7 +57,10 @@ function Blog() {
                     <Route path="/post" element={<Post />} />
                     <Route path="/post/:id" element={<Post />} />
                     <Route path="/post/:id/edit" element={<Post />} />
-                    <Route path="*" element={<div>Error</div>} />
+                    <Route
+                        path="*"
+                        element={<Error error={ERROR.PAGE_NOT_FOUND} />}
+                    />
                 </Routes>
             </Page>
 

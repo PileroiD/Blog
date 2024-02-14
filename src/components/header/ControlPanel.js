@@ -9,7 +9,8 @@ import {
     selectUserLogin,
     selectUserSession,
 } from "../../selectors";
-import { RESET_POST_DATA, logOut } from "../../actions";
+import { logOut } from "../../actions";
+import { checkAccess } from "../utils/check-access";
 
 const RightAligned = styled.div`
     display: flex;
@@ -34,6 +35,8 @@ const ControlPanelContainer = ({ className }) => {
         dispatch(logOut(session));
         sessionStorage.removeItem("userData");
     };
+
+    const isAdmin = checkAccess([ROLE.ADMIN], roleId);
 
     return (
         <div className={className}>
@@ -61,20 +64,24 @@ const ControlPanelContainer = ({ className }) => {
                         margin={"10px 0 0 0"}
                     />
                 </div>
-                <Link to="/post">
-                    <Icon
-                        id={"fa-file-text-o"}
-                        margin={"10px 0 0 10px"}
-                        styledicon="true"
-                    />
-                </Link>
-                <Link to="/users">
-                    <Icon
-                        id={"fa-users"}
-                        margin={"10px 0 0 10px"}
-                        styledicon="true"
-                    />
-                </Link>
+                {isAdmin ? (
+                    <>
+                        <Link to="/post">
+                            <Icon
+                                id={"fa-file-text-o"}
+                                margin={"10px 0 0 10px"}
+                                styledicon="true"
+                            />
+                        </Link>
+                        <Link to="/users">
+                            <Icon
+                                id={"fa-users"}
+                                margin={"10px 0 0 10px"}
+                                styledicon="true"
+                            />
+                        </Link>
+                    </>
+                ) : null}
             </RightAligned>
         </div>
     );

@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { SpecialPanel } from "./components/SpecialPanel";
 import { Icon } from "../../../icon-component/icon-component";
 import { useNavigate } from "react-router-dom";
+import { PROP_TYPE } from "../../../../constants/prop-type";
 
 const StyledImg = styled.img`
     width: 280px;
@@ -55,3 +56,7 @@ const PostContentContainer = ({
 };
 
 export const PostContent = styled(PostContentContainer)``;
+
+PostContent.propTypes = {
+    post: PROP_TYPE.POST,
+};

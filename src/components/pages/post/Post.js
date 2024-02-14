@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useMatch, useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -9,7 +9,9 @@ import { loadPostAsync } from "../../../actions";
 import { selectPost } from "../../../selectors/select-post";
 import { PostForm } from "./components/PostForm";
 import { RESET_POST_DATA } from "../../../actions";
-import { initialPostState } from "../../../reducers/post-reducer";
+import { Error } from "../../error/Error";
+import { PrivateContent } from "../../private-content/PrivateContent";
+import { ROLE } from "../../../constants/role";
 
 const PostContainer = ({ className }) => {
     const post = useSelector(selectPost);
@@ -17,6 +19,9 @@ const PostContainer = ({ className }) => {
     const params = useParams();
     const isEditing = useMatch("/post/:id/edit");
     const isCreating = useMatch("/post");
+    const [error, setError] = useState(true);
+    const [isLoading, setIsLoading] = useState(true);
+
     const requestServer = useServerRequest();
 
     useLayoutEffect(() => {
@@ -25,16 +30,31 @@ const PostContainer = ({ className }) => {
 
     useEffect(() => {
         if (isCreating) {
+            setIsLoading(false);
+            setError(false);
             return;
         }
 
-        dispatch(loadPostAsync(requestServer, params.id));
+        setIsLoading(true);
+
+        dispatch(loadPostAsync(requestServer, params.id)).then((postData) => {
+            setError(postData.error);
+            setIsLoading(false);
+        });
     }, [params.id, isEditing, isCreating, dispatch, requestServer]);
 
-    return (
+    if (isLoading) {
+        return null;
+    }
+
+    return error ? (
+        <Error error={error} />
+    ) : (
         <div className={className}>
             {isEditing || isCreating ? (
-                <PostForm post={isCreating ? initialPostState : post} />
+                <PrivateContent access={[ROLE.ADMIN]} serverError={error}>
+                    <PostForm post={post} />
+                </PrivateContent>
             ) : (
                 <>
                     <PostContent post={post} />

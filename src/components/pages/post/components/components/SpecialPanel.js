@@ -1,9 +1,13 @@
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Icon } from "../../../../icon-component/icon-component";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { closeModal, openModal } from "../../../../../actions";
 import { useServerRequest } from "../../../../../hooks/use-server-request";
 import { useNavigate } from "react-router-dom";
+import { selectUserRole } from "../../../../../selectors";
+import { checkAccess } from "../../../../utils/check-access";
+import { ROLE } from "../../../../../constants/role";
 
 const DateDiv = styled.div`
     display: flex;
@@ -26,6 +30,9 @@ const SpecialPanelContainer = ({
     const dispatch = useDispatch();
     const requestServer = useServerRequest();
     const navigate = useNavigate();
+
+    const roleId = useSelector(selectUserRole);
+    const isAdmin = checkAccess([ROLE.ADMIN], roleId);
 
     const onPostRemove = (postId) => {
         dispatch(
@@ -50,18 +57,20 @@ const SpecialPanelContainer = ({
                     {publishedAt}
                 </DateDiv>
             )}
-            <UpdateDiv>
-                {editButton}
-                {publishedAt && (
-                    <Icon
-                        id={"fa-trash-o"}
-                        size={"19px"}
-                        margin={"0 0 3px 7px"}
-                        styledicon="true"
-                        onClick={() => onPostRemove(postId)}
-                    />
-                )}
-            </UpdateDiv>
+            {isAdmin ? (
+                <UpdateDiv>
+                    {editButton}
+                    {publishedAt && (
+                        <Icon
+                            id={"fa-trash-o"}
+                            size={"19px"}
+                            margin={"0 0 3px 7px"}
+                            styledicon="true"
+                            onClick={() => onPostRemove(postId)}
+                        />
+                    )}
+                </UpdateDiv>
+            ) : null}
         </div>
     );
 };
@@ -77,3 +86,9 @@ export const SpecialPanel = styled(SpecialPanelContainer)`
         top: -2px;
     }
 `;
+
+SpecialPanel.propTypes = {
+    publishedAt: PropTypes.string.isRequired,
+    editButton: PropTypes.node.isRequired,
+    postId: PropTypes.string.isRequired,
+};

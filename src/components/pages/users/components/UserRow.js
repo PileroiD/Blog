@@ -1,7 +1,9 @@
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Icon } from "../../../icon-component/icon-component";
 import { useState } from "react";
 import { useServerRequest } from "../../../../hooks/use-server-request";
+import { PROP_TYPE } from "../../../../constants/prop-type";
 
 const UserData = styled.div`
     display: flex;
@@ -105,3 +107,12 @@ export const UserRow = styled(UserRowContainer)`
         align-items: center;
     }
 `;
+
+UserRow.propTypes = {
+    login: PropTypes.string.isRequired,
+    registeredAt: PropTypes.string.isRequired,
+    roleId: PROP_TYPE.ROLE_ID.isRequired,
+    roles: PropTypes.arrayOf(PROP_TYPE.ROLE).isRequired,
+    id: PropTypes.string.isRequired,
+    onUserRemove: PropTypes.func.isRequired,
+};

@@ -1,19 +1,27 @@
 import { UserRow } from "./components/UserRow";
 import { useServerRequest } from "../../../hooks/use-server-request";
 import { useEffect, useState } from "react";
-import { Content } from "../../content/Content";
+import { PrivateContent } from "../../private-content/PrivateContent";
 import styled from "styled-components";
 import { ROLE } from "../../../bff/constants/role";
+import { checkAccess } from "../../utils/check-access";
+import { useSelector } from "react-redux";
+import { selectUserRole } from "../../../selectors";
 
 export const UsersContainer = ({ className }) => {
     const [users, setUsers] = useState([]);
     const [roles, setRoles] = useState([]);
     const [errorMessage, setErrorMessage] = useState(null);
     const [shouldUpdateUserList, setShouldUpdateUserList] = useState(false);
+    const userRole = useSelector(selectUserRole);
 
     const requestServer = useServerRequest();
 
     useEffect(() => {
+        if (!checkAccess([ROLE.ADMIN], userRole)) {
+            return;
+        }
+
         Promise.all([
             requestServer("fetchRoles"),
             requestServer("fetchUsers"),
@@ -27,17 +35,21 @@ export const UsersContainer = ({ className }) => {
             setUsers(usersRes.response);
             setRoles(rolesRes.response);
         });
-    }, [shouldUpdateUserList, requestServer]);
+    }, [shouldUpdateUserList, requestServer, userRole]);
 
     const onUserRemove = (userId) => {
+        if (!checkAccess([ROLE.ADMIN], userRole)) {
+            return;
+        }
+
         requestServer("removeUser", userId).then(() => {
             setShouldUpdateUserList(!shouldUpdateUserList);
         });
     };
 
     return (
-        <div className={className}>
-            <Content error={errorMessage}>
+        <PrivateContent access={[ROLE.ADMIN]} serverError={errorMessage}>
+            <div className={className}>
                 <>
                     <h2>Users</h2>
                     <div>
@@ -59,8 +71,8 @@ export const UsersContainer = ({ className }) => {
                         ))}
                     </div>
                 </>
-            </Content>
-        </div>
+            </div>
+        </PrivateContent>
     );
 };
 

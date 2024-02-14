@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { useServerRequest } from "../../../../hooks/use-server-request";
 import { savePostAsync } from "../../../../actions";
 import { useNavigate } from "react-router-dom";
+import { PROP_TYPE } from "../../../../constants/prop-type";
 
 const PostFormContainer = ({
     className,
@@ -103,3 +104,7 @@ export const PostForm = styled(PostFormContainer)`
         font-size: 16px;
     }
 `;
+
+PostForm.propTypes = {
+    post: PROP_TYPE.POST,
+};

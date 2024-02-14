@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Button } from "../../button-component/button-component";
 
@@ -70,3 +71,10 @@ export const Pagination = styled(PaginationContainer)`
         text-decoration: underline;
     }
 `;
+
+Pagination.propTypes = {
+    page: PropTypes.number.isRequired,
+    lastPage: PropTypes.number.isRequired,
+    setPage: PropTypes.func.isRequired,
+    setLastPage: PropTypes.func.isRequired,
+};
